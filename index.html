@@ -67,9 +67,26 @@
   .bar-fill{position:absolute;inset:0 auto 0 0;width:0;border-radius:99px;background:var(--accent)}
   .bar input{position:absolute;inset:-12px 0;width:100%;opacity:0;cursor:pointer;margin:0}
   .time{display:flex;justify-content:space-between;font-size:16px;color:var(--soft);margin-top:8px;font-variant-numeric:tabular-nums}
-  .lyrics-btn{margin-top:24px;width:100%;padding:14px;border-radius:12px;border:1.5px solid var(--line);
+  .btn-row{display:flex;gap:12px;margin-top:24px}
+  .btn-row button{flex:1}
+  /* Video pop-up */
+  .modal{position:fixed;inset:0;z-index:100;display:none;align-items:center;justify-content:center;
+    background:rgba(20,14,8,.88);backdrop-filter:blur(6px);padding:24px;opacity:0;transition:opacity .25s}
+  .modal.open{display:flex}
+  .modal.show{opacity:1}
+  .modal-box{position:relative;display:flex;flex-direction:column;align-items:center;max-width:100%;max-height:100%}
+  .modal-title{color:#f4ece1;font-family:"Cormorant Garamond",Georgia,serif;font-size:26px;margin:0 56px 14px;text-align:center;line-height:1.2}
+  .modal video{display:block;max-width:100%;max-height:calc(100vh - 140px);max-height:calc(100dvh - 140px);
+    border-radius:14px;background:#000;box-shadow:0 12px 48px rgba(0,0,0,.5)}
+  .modal-close{position:fixed;top:16px;right:16px;width:56px;height:56px;border-radius:50%;border:none;
+    background:#fffdf9;color:var(--ink);font-size:30px;line-height:1;cursor:pointer;display:grid;place-items:center;
+    box-shadow:0 4px 16px rgba(0,0,0,.3)}
+  .modal-close:hover{background:#fff;transform:scale(1.05)}
+  .modal-hint{color:rgba(244,236,225,.7);font-size:16px;margin-top:12px}
+  body.locked{overflow:hidden}
+  .lyrics-btn,.video-btn{padding:14px;border-radius:12px;border:1.5px solid var(--line);
     background:transparent;cursor:pointer;font-weight:600;font-size:18px;transition:.2s}
-  .lyrics-btn:hover{border-color:var(--accent);color:var(--accent-dark)}
+  .lyrics-btn:hover,.video-btn:hover{border-color:var(--accent);color:var(--accent-dark)}
   .lyrics{display:none;margin-top:24px;padding-top:8px;border-top:1px solid var(--line);
     text-align:center;font-size:20px;line-height:1.65}
   .lyrics.open{display:block}
@@ -100,13 +117,39 @@
     padding:12px 26px;border-radius:999px;border:1.5px solid var(--line);background:var(--paper)}
 
   @media (max-width:640px){
-    body{font-size:19px}
-    .song-top{flex-direction:column;text-align:center}
-    .cover{width:100%;height:auto;aspect-ratio:1}
-    .player{justify-content:center}
-    .note{padding:32px 26px}
-    .note p{font-size:21px}
-    .nav a{padding:10px 18px;font-size:17px}
+    body{font-size:18px;line-height:1.65}
+    html{scroll-padding-top:76px}
+    .nav-inner{padding:10px 16px;gap:10px}
+    .nav a{flex:1;text-align:center;padding:12px 10px;font-size:17px}
+    header.hero{padding:48px 20px 36px}
+    .eyebrow{font-size:12px}
+    h1{font-size:40px;margin:14px 0 16px}
+    .lede{font-size:18px}
+    main{padding:0 14px 56px}
+    section{padding-top:28px}
+    h2{font-size:36px}
+    .section-sub{font-size:17px;margin-bottom:28px}
+    .song{padding:22px 18px;border-radius:18px;margin-bottom:24px}
+    .song-top{flex-direction:column;text-align:center;gap:18px}
+    .cover{width:min(240px,70vw);height:auto;aspect-ratio:1}
+    .song h3{font-size:32px}
+    .song .tag{font-size:17px;margin-bottom:14px}
+    .player{gap:14px}
+    .play{width:64px;height:64px}
+    .btn-row{flex-direction:column;gap:10px;margin-top:20px}
+    .lyrics-btn,.video-btn{padding:16px;font-size:18px}
+    .lyrics{font-size:18px}
+    .note{padding:28px 22px;border-radius:18px;margin-bottom:22px}
+    .note h3{font-size:29px;margin-bottom:16px}
+    .note p{font-size:20px;line-height:1.75}
+    .note .closing{font-size:26px}
+    .note-nav{margin:-8px 0 28px}
+    .note-nav a{padding:10px 16px}
+    .modal{padding:12px;padding-top:80px;background:rgba(20,14,8,.95)}
+    .modal-title{font-size:22px;margin:0 8px 10px}
+    .modal video{max-height:calc(100vh - 150px);max-height:calc(100dvh - 150px);border-radius:10px}
+    .modal-close{top:12px;right:12px}
+    .modal-hint{display:none}
   }
 </style>
 </head>
@@ -129,7 +172,7 @@
 <main>
   <section id="songs">
     <h2>The Songs</h2>
-    <p class="section-sub">Press the play button to listen. Tap “Show the words” to read along.</p>
+    <p class="section-sub">Press the play button to listen. Tap “Show the words” to read along, or “Watch the video” to see it.</p>
 
     <article class="song" data-src="songs/source-code.mp3">
       <div class="song-top">
@@ -147,7 +190,10 @@
           </div>
         </div>
       </div>
-      <button class="lyrics-btn" aria-expanded="false">Show the words</button>
+      <div class="btn-row">
+        <button class="lyrics-btn" aria-expanded="false">Show the words</button>
+        <button class="video-btn" aria-haspopup="dialog">▶ Watch the video</button>
+      </div>
       <div class="lyrics" data-lyrics="source-code"></div>
     </article>
 
@@ -167,7 +213,10 @@
           </div>
         </div>
       </div>
-      <button class="lyrics-btn" aria-expanded="false">Show the words</button>
+      <div class="btn-row">
+        <button class="lyrics-btn" aria-expanded="false">Show the words</button>
+        <button class="video-btn" aria-haspopup="dialog">▶ Watch the video</button>
+      </div>
       <div class="lyrics" data-lyrics="the-clear-light"></div>
     </article>
   </section>
@@ -221,6 +270,15 @@
   <div class="sig">With love</div>
   <a class="top-link" href="#top">↑ Back to the top</a>
 </footer>
+
+<div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+  <button class="modal-close" aria-label="Close video">×</button>
+  <div class="modal-box">
+    <h3 class="modal-title" id="modal-title"></h3>
+    <video controls playsinline preload="none"></video>
+    <div class="modal-hint">Tap outside the video or press × to close</div>
+  </div>
+</div>
 
 <script>
 const LYRICS = {
@@ -455,6 +513,27 @@ const PLAY = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13a1 
 const PAUSE = '<svg viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>';
 const fmt = s => isFinite(s) ? `${Math.floor(s/60)}:${String(Math.floor(s%60)).padStart(2,'0')}` : '–:––';
 const players = [];
+const modal = document.querySelector('.modal'), mVideo = modal.querySelector('video'),
+      mTitle = modal.querySelector('.modal-title'), mClose = modal.querySelector('.modal-close');
+let lastBtn = null;
+function openVideo(src, title, btn){
+  lastBtn = btn;
+  players.forEach(a => a.pause());
+  mTitle.textContent = title;
+  mVideo.poster = src.replace('.mp4','.jpg'); mVideo.src = src; mVideo.load();
+  modal.classList.add('open'); document.body.classList.add('locked');
+  requestAnimationFrame(() => modal.classList.add('show'));
+  mClose.focus();
+  mVideo.play().catch(() => {});
+}
+function closeVideo(){
+  mVideo.pause(); mVideo.removeAttribute('src'); mVideo.load();
+  modal.classList.remove('show','open'); document.body.classList.remove('locked');
+  if (lastBtn) lastBtn.focus();
+}
+mClose.onclick = closeVideo;
+modal.onclick = e => { if (e.target === modal || e.target.classList.contains('modal-box')) closeVideo(); };
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && modal.classList.contains('open')) closeVideo(); });
 
 document.querySelectorAll('.song').forEach(song => {
   const audio = new Audio(song.dataset.src);
@@ -479,6 +558,9 @@ document.querySelectorAll('.song').forEach(song => {
     fill.style.width = pct*100 + '%'; range.value = pct*1000; cur.textContent = fmt(audio.currentTime);
   };
   range.oninput = () => { if (audio.duration) audio.currentTime = range.value/1000 * audio.duration; };
+
+  song.querySelector('.video-btn').onclick = e => openVideo(song.dataset.src.replace('.mp3','.mp4'), title, e.currentTarget);
+  audio.addEventListener('play', () => { players.forEach(a => a !== audio && a.pause()); mVideo.pause(); });
 
   const lb = song.querySelector('.lyrics-btn'), ly = song.querySelector('.lyrics');
   lb.onclick = () => { const open = ly.classList.toggle('open');
