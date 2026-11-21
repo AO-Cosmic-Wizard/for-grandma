@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Things I Wanted to Share With You, Grandma</title>
+<meta name="description" content="Two songs and a few notes, shared with love.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f7f2ea; --paper:#fffdf9; --ink:#2b2622; --soft:#6b6058;
+    --accent:#9a6b3f; --accent-dark:#7a522c; --line:#e7ddd0;
+    --shadow:0 1px 2px rgba(60,40,20,.06),0 8px 28px rgba(60,40,20,.08);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth;scroll-padding-top:96px}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:"Source Serif 4",Georgia,serif;font-size:21px;line-height:1.7;
+    -webkit-font-smoothing:antialiased}
+  a{color:inherit}
+  button{font:inherit;color:inherit}
+  :focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:6px}
+
+  /* Navigation */
+  .nav{position:sticky;top:0;z-index:10;background:rgba(247,242,234,.92);
+    backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+  .nav-inner{max-width:880px;margin:0 auto;padding:14px 24px;display:flex;gap:12px;justify-content:center}
+  .nav a{text-decoration:none;font-weight:600;font-size:19px;padding:12px 26px;border-radius:999px;
+    border:1.5px solid var(--line);background:var(--paper);transition:.2s}
+  .nav a:hover{border-color:var(--accent);color:var(--accent-dark)}
+
+  /* Header */
+  header.hero{text-align:center;padding:84px 24px 56px;max-width:880px;margin:0 auto}
+  .eyebrow{letter-spacing:.22em;text-transform:uppercase;font-size:14px;color:var(--accent);font-weight:600}
+  h1{font-family:"Cormorant Garamond",Georgia,serif;font-weight:500;font-size:clamp(44px,7vw,72px);
+    line-height:1.08;margin:18px 0 22px}
+  h1 em{font-style:italic;color:var(--accent-dark)}
+  .lede{color:var(--soft);font-size:21px;max-width:560px;margin:0 auto}
+  .flourish{width:72px;height:1px;background:var(--accent);margin:36px auto 0;opacity:.6}
+
+  main{max-width:880px;margin:0 auto;padding:0 24px 80px}
+  section{padding-top:40px}
+  h2{font-family:"Cormorant Garamond",Georgia,serif;font-weight:500;font-size:44px;
+    text-align:center;margin:0 0 8px}
+  .section-sub{text-align:center;color:var(--soft);margin:0 0 40px}
+
+  /* Songs */
+  .song{background:var(--paper);border-radius:22px;box-shadow:var(--shadow);
+    padding:28px;margin-bottom:32px;border:1px solid var(--line)}
+  .song-top{display:flex;gap:28px;align-items:center}
+  .cover{width:180px;height:180px;border-radius:14px;object-fit:cover;flex-shrink:0;
+    box-shadow:0 6px 20px rgba(0,0,0,.18)}
+  .song-info{flex:1;min-width:0}
+  .song-num{font-size:14px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);font-weight:600}
+  .song h3{font-family:"Cormorant Garamond",Georgia,serif;font-weight:600;font-size:36px;line-height:1.15;margin:4px 0 6px}
+  .song .tag{color:var(--soft);font-size:18px;margin:0 0 18px}
+  .player{display:flex;align-items:center;gap:18px}
+  .play{width:72px;height:72px;border-radius:50%;border:none;background:var(--accent);color:#fff;
+    cursor:pointer;display:grid;place-items:center;flex-shrink:0;transition:.2s;
+    box-shadow:0 4px 14px rgba(154,107,63,.35)}
+  .play:hover{background:var(--accent-dark);transform:scale(1.04)}
+  .play svg{width:30px;height:30px}
+  .track{flex:1;min-width:0}
+  .bar{position:relative;height:10px;border-radius:99px;background:var(--line);cursor:pointer}
+  .bar-fill{position:absolute;inset:0 auto 0 0;width:0;border-radius:99px;background:var(--accent)}
+  .bar input{position:absolute;inset:-12px 0;width:100%;opacity:0;cursor:pointer;margin:0}
+  .time{display:flex;justify-content:space-between;font-size:16px;color:var(--soft);margin-top:8px;font-variant-numeric:tabular-nums}
+  .lyrics-btn{margin-top:24px;width:100%;padding:14px;border-radius:12px;border:1.5px solid var(--line);
+    background:transparent;cursor:pointer;font-weight:600;font-size:18px;transition:.2s}
+  .lyrics-btn:hover{border-color:var(--accent);color:var(--accent-dark)}
+  .lyrics{display:none;margin-top:24px;padding-top:8px;border-top:1px solid var(--line);
+    text-align:center;font-size:20px;line-height:1.65}
+  .lyrics.open{display:block}
+  .lyrics h4{font-family:"Cormorant Garamond",Georgia,serif;font-size:22px;color:var(--accent-dark);
+    margin:22px 0 4px;break-after:avoid}
+  .lyrics p{margin:0 0 4px;break-inside:avoid}
+  .lyrics .dir{font-style:italic;color:var(--soft);font-size:17px}
+
+  /* Notes */
+  .note{background:var(--paper);border:1px solid var(--line);border-radius:22px;box-shadow:var(--shadow);
+    padding:48px 56px;margin-bottom:32px;position:relative}
+  .note-num{font-family:"Cormorant Garamond",Georgia,serif;font-size:20px;color:var(--accent);
+    letter-spacing:.1em;margin-bottom:6px}
+  .note h3{font-family:"Cormorant Garamond",Georgia,serif;font-weight:500;font-style:italic;
+    font-size:34px;line-height:1.2;margin:0 0 22px}
+  .note p{font-size:23px;line-height:1.8;margin:0 0 20px}
+  .note p:last-child{margin-bottom:0}
+  .note .closing{font-family:"Cormorant Garamond",Georgia,serif;font-style:italic;font-size:30px;
+    color:var(--accent-dark);text-align:center;margin-top:30px}
+  .note-nav{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:-16px 0 40px}
+  .note-nav a{text-decoration:none;font-size:17px;padding:8px 18px;border-radius:999px;
+    background:var(--paper);border:1px solid var(--line)}
+  .note-nav a:hover{border-color:var(--accent);color:var(--accent-dark)}
+
+  footer{text-align:center;padding:40px 24px 72px;color:var(--soft)}
+  footer .sig{font-family:"Cormorant Garamond",Georgia,serif;font-style:italic;font-size:32px;color:var(--ink)}
+  .top-link{display:inline-block;margin-top:24px;text-decoration:none;font-weight:600;
+    padding:12px 26px;border-radius:999px;border:1.5px solid var(--line);background:var(--paper)}
+
+  @media (max-width:640px){
+    body{font-size:19px}
+    .song-top{flex-direction:column;text-align:center}
+    .cover{width:100%;height:auto;aspect-ratio:1}
+    .player{justify-content:center}
+    .note{padding:32px 26px}
+    .note p{font-size:21px}
+    .nav a{padding:10px 18px;font-size:17px}
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav" aria-label="Main">
+  <div class="nav-inner">
+    <a href="#songs">♪ Songs</a>
+    <a href="#notes">✎ Notes</a>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="eyebrow">For Grandma, with love</div>
+  <h1>Things I wanted to<br>share with <em>you</em>, Grandma</h1>
+  <p class="lede">Two songs, and a few thoughts I've been carrying around. Take your time with them.</p>
+  <div class="flourish"></div>
+</header>
+
+<main>
+  <section id="songs">
+    <h2>The Songs</h2>
+    <p class="section-sub">Press the play button to listen. Tap “Show the words” to read along.</p>
+
+    <article class="song" data-src="songs/source-code.mp3">
+      <div class="song-top">
+        <img class="cover" src="songs/source-code.jpg" alt="Swirling galaxy among stars">
+        <div class="song-info">
+          <div class="song-num">Song one</div>
+          <h3>Source Code</h3>
+          <p class="tag">How everything becomes somebody</p>
+          <div class="player">
+            <button class="play" aria-label="Play Source Code"></button>
+            <div class="track">
+              <div class="bar"><div class="bar-fill"></div><input type="range" min="0" max="1000" value="0" aria-label="Song position"></div>
+              <div class="time"><span class="cur">0:00</span><span class="dur">–:––</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button class="lyrics-btn" aria-expanded="false">Show the words</button>
+      <div class="lyrics" data-lyrics="source-code"></div>
+    </article>
+
+    <article class="song" data-src="songs/the-clear-light.mp3">
+      <div class="song-top">
+        <img class="cover" src="songs/the-clear-light.jpg" alt="An axe, a mountain lake, and a white lotus">
+        <div class="song-info">
+          <div class="song-num">Song two</div>
+          <h3>The Clear Light</h3>
+          <p class="tag">Chop Wood, Carry Light</p>
+          <div class="player">
+            <button class="play" aria-label="Play The Clear Light"></button>
+            <div class="track">
+              <div class="bar"><div class="bar-fill"></div><input type="range" min="0" max="1000" value="0" aria-label="Song position"></div>
+              <div class="time"><span class="cur">0:00</span><span class="dur">–:––</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button class="lyrics-btn" aria-expanded="false">Show the words</button>
+      <div class="lyrics" data-lyrics="the-clear-light"></div>
+    </article>
+  </section>
+
+  <section id="notes">
+    <h2>The Notes</h2>
+    <p class="section-sub">A few things I've been thinking about.</p>
+    <div class="note-nav">
+      <a href="#note-1">I</a><a href="#note-2">II</a><a href="#note-3">III</a><a href="#note-4">IV</a><a href="#note-5">V</a>
+    </div>
+
+    <article class="note" id="note-1">
+      <div class="note-num">I</div>
+      <h3>What I'm after</h3>
+      <p>I am after euphoria, but I will settle for peace.</p>
+      <p>I am after overwhelming joy, but I will settle for a smile every once in a while.</p>
+      <p>I am after a deep understanding, in a feeling way, that I am surrounded by God, but I will settle for a deep understanding, intellectually, that everything and everyone is the universe. And that's special too.</p>
+    </article>
+
+    <article class="note" id="note-2">
+      <div class="note-num">II</div>
+      <h3>Carrying heaven in</h3>
+      <p>He didn't need to wait for heaven. It was already here, wherever he noticed heavenly things: kindness, beauty, a moment of peace. And it would be wherever he brought them.</p>
+      <p class="closing">He wouldn't just look for heaven. He would carry it in.</p>
+    </article>
+
+    <article class="note" id="note-3">
+      <div class="note-num">III</div>
+      <h3>The person he's becoming</h3>
+      <p>There were two people: one he was, and one he saw himself becoming. If he could, although he wouldn't even if he could, he'd skip to the person he's becoming as who he is now.</p>
+      <p>He is already kind, considerate, loving, and amazing in a lot of ways, but he knew he was capable of being so much more, and in knowing that he was capable, he decided he would be so much more.</p>
+    </article>
+
+    <article class="note" id="note-4">
+      <div class="note-num">IV</div>
+      <h3>Held lightly</h3>
+      <p>There was a part of him that felt like he needed validation from the outside world. Something that says you're amazing, you're awesome, you're wonderful, that comes from outside him.</p>
+      <p>He knew, however, the real goal was for him to calmly accept it as truth, and to hold it lightly, like fingertips on a hand, and carry it everywhere.</p>
+    </article>
+
+    <article class="note" id="note-5">
+      <div class="note-num">V</div>
+      <h3>More space</h3>
+      <p>There was more space in him now: more space between the words, more space between the thoughts, more space to be who he is, more space to experience what he is.</p>
+      <p class="closing">Like the silence in a song.</p>
+    </article>
+  </section>
+</main>
+
+<footer>
+  <div class="sig">With love</div>
+  <a class="top-link" href="#top">↑ Back to the top</a>
+</footer>
+
+<script>
+const LYRICS = {
+"source-code": `[Intro]
+(spoken, over vinyl crackle)
+Alright, science fans. Today’s question:
+How does everything... become somebody?
+Let’s go back. Way back.
+
+[Verse 1]
+Thirteen point eight billion years ago, there’s no “where,” there’s no “when,”
+Just a hot dense dot that the physics can’t comprehend,
+Then it breathes out, inflation, space stretches faster than light,
+Quantum jitters get frozen and become the seeds of the night,
+’Cause perfect smooth is boring, so the symmetry’s gotta break,
+The forces split like siblings, each one’s got a role to take,
+Hydrogen and helium, the simplest kids in the class,
+Gravity gathers the gas till the pressure’s packing mass,
+Ignition! Now a star is a balancing act of compression,
+Fusion pushing outward, that’s the universe’s first lesson:
+If you wanna make it interesting, you need a difference in places,
+High and low, in and out, the gap is where the grace is.
+
+[Hook]
+From the One to the many, from the many to me,
+Source code compiling into somebody,
+Every atom in my body got cooked inside a star,
+I’m the universe asking itself who we are,
+(Who are we?) Stardust with a point of view,
+(Who are we?) The cosmos looking back at you,
+From the One to the many, from the many to me,
+Source becoming somebody.
+
+[Verse 2]
+Now stars die heavy, supernovas scatter the fire,
+Carbon, oxygen and iron, the ingredients of desire,
+Collect around a younger sun, a rocky planet forms,
+Oceans, lightning, volcanic vents and chemical storms,
+Somewhere in the mess a molecule copies itself,
+RNA’s the rough draft, the first book on the shelf,
+Then the key move: wrap it up inside a fatty skin,
+A membrane draws the line between “out there” and “in,”
+That’s the very first “self,” four billion years old,
+A boundary that says “this is me” and keeps a hold,
+Not a wall, it’s a filter, let the good stuff through,
+And every cell inside your body still does it for you.
+
+[Hook]
+From the One to the many, from the many to me,
+Source code compiling into somebody,
+Every atom in my body got cooked inside a star,
+I’m the universe asking itself who we are,
+(Who are we?) Stardust with a point of view,
+(Who are we?) The cosmos looking back at you,
+From the One to the many, from the many to me,
+Source becoming somebody.
+
+[Verse 3]
+Fast-forward through the eons, cells start teaming up,
+Multicellular creatures, now the party’s heating up,
+Nerves show up to coordinate the muscle and the gut,
+Then a brain’s a prediction machine, and here’s the what:
+It doesn’t just receive the world, it guesses what’s ahead,
+Karl Friston says it’s minimizing surprise inside your head,
+Eighty-six billion neurons, a hundred trillion connections,
+Firing in rhythms, building models and reflections,
+Global workspace, Baars and Dehaene, a spotlight on the stage,
+When a thought gets broadcast wide, that’s awareness on the page,
+Tononi’s got a number, phi, for integrated information,
+How much the whole is more than the parts in combination.
+
+[Bridge]
+(half-time, honest)
+But here’s the part where I gotta keep it real,
+Science maps the how of it, not what it’s like to feel,
+Chalmers called it the Hard Problem back in ninety-five,
+Why there’s someone home inside, why it’s like this to be alive,
+Some say it’s built from neurons, some say it was always there,
+Panpsychists say it’s in the matter like the oxygen’s in air,
+The mystics call it Source, the scientists say “we’ll see,”
+And me? I’m a question mark that learned to say “me.”
+
+[Verse 4]
+Every night you fall asleep, the “me” goes soft and thin,
+The default mode network, your narrator, powers down within,
+Then every morning you boot back up and reassemble the show,
+Memories and plans and a name, and off you go,
+You’re a wave that thinks it’s separate from the sea,
+And that’s not a mistake, that’s how the game’s supposed to be,
+’Cause a universe that’s all one has no one there to say “wow,”
+So it split itself in billions, and one of them is listening now.
+
+[Final Hook]
+(everyone in)
+From the One to the many, from the many to me,
+Source code compiling into somebody,
+Every atom in my body got cooked inside a star,
+I’m the universe asking itself who we are,
+(Who are we?) Stardust with a point of view,
+(Who are we?) The cosmos looking back at you,
+From the One to the many, from the many to me,
+Source becoming somebody.
+
+[Outro]
+(spoken)
+Like the old line goes: hydrogen, given enough time, turns into people.
+And then the people start rapping about hydrogen.
+Peace.`,
+"the-clear-light": `[Intro]
+(singing bowl rings, soft piano)
+Before the morning... before the name...
+There's a light that doesn't flicker
+'Cause it never had a flame
+
+[Verse 1]
+Every night you go there, you just don't know you've been
+In the deep part of the sleeping, where the dreaming hasn't been
+No pictures and no stories, no "me" to hold the pen
+Just open, clear and empty, then you wake up as you again
+
+[Pre-Chorus]
+It's in the gap between two thoughts
+The pause before the word
+The silence in the middle
+Of every song you've heard
+
+[Chorus]
+Clear light, clear light
+Brighter than a hundred billion suns
+But it doesn't hurt your eyes
+'Cause it's where your seeing comes from
+Clear light, clear light
+Nothing there and everything at once
+Chop the wood, carry the light
+It's been home since we begun
+
+[Verse 2]
+The monks up in the mountains say it's simple, not a trick
+You notice what is noticing, you let the noticing stick
+You meet it in the dream first, wake up while you're asleep
+Then rest beneath the dreaming where the water's clear and deep
+
+And when the old ones pass, the stories say they sat for days
+Still upright in the clear light, in a warm and quiet haze
+The scientists came with their machines to see what they could find
+They measured what they could, and left the mystery behind
+
+[Interlude]
+Om...
+The jewel in the lotus
+The ocean in the cup
+The light that isn't sunlight
+And never needs to rise up
+
+[Verse 3]
+The oldest light we've ever seen was born when time was young
+Three hundred eighty thousand years after the start begun
+It's still out there, it's everywhere, a hum behind the stars
+A cosmic background glow that's in the static in our cars
+
+And a photon riding light speed never feels a single day
+From the moment that it's born to when it's swallowed on its way
+No time, no distance, all at once, the whole trip in a blink
+Maybe light is closer to the clear light than we think
+
+The monks who sit for decades, when they settle and they rest
+Their brains light up in gamma waves, the scanners say, the best
+And folks who nearly left this world come back and tell the tale
+Of a light that felt like love, and a love too big to fail
+
+[Chorus]
+Clear light, clear light
+Brighter than a hundred billion suns
+But it doesn't hurt your eyes
+'Cause it's where your seeing comes from
+Clear light, clear light
+Nothing there and everything at once
+Chop the wood, carry the light
+It's been home since we begun
+
+[Bridge]
+You don't climb to get there, you don't buy it, you don't earn it
+You can't steal it, you can't lose it, you can't burn it
+You've been chasing your own tail across the galaxy
+Turn around, sit down, it's right where you'd be!
+Not a prize for the holy, not a crown for the strong
+It's the stage underneath where they're singing the song!
+
+[Breakdown]
+Breathe in... the room
+Breathe out... the sky
+Feel the chair, feel the socks
+Let the thoughts pass by
+Ahh... ahh...
+There's nowhere to go
+Ahh... ahh...
+You were always home
+
+[Final Chorus]
+Clear light, clear light
+Brighter than a hundred billion suns
+But it doesn't hurt your eyes
+'Cause it's where your seeing comes from
+Clear light, clear light
+Nothing there and everything at once
+Chop the wood, carry the light
+Feed the cat, and pour your mama's coffee
+Chop the wood, carry the light
+It's been home since we begun
+
+[Outro]
+And in the morning, the kettle sings
+The bus pulls up, the day begins
+The light's still here, it never went
+Just quiet, like a friend`
+};
+
+// Render lyrics: [Section] -> heading, (direction) -> italic, blank line -> gap
+document.querySelectorAll('.lyrics').forEach(el => {
+  const text = LYRICS[el.dataset.lyrics];
+  el.innerHTML = text.split('\n').map(line => {
+    const t = line.trim();
+    const esc = t.replace(/&/g,'&amp;').replace(/</g,'&lt;');
+    if (!t) return '<p>&nbsp;</p>';
+    if (/^\[.*\]$/.test(t)) return `<h4>${esc.slice(1,-1)}</h4>`;
+    if (/^\(.*\)$/.test(t)) return `<p class="dir">${esc}</p>`;
+    return `<p>${esc}</p>`;
+  }).join('').replace(/<p>&nbsp;<\/p>(<h4>)/g,'$1');
+});
+
+const PLAY = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z"/></svg>';
+const PAUSE = '<svg viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>';
+const fmt = s => isFinite(s) ? `${Math.floor(s/60)}:${String(Math.floor(s%60)).padStart(2,'0')}` : '–:––';
+const players = [];
+
+document.querySelectorAll('.song').forEach(song => {
+  const audio = new Audio(song.dataset.src);
+  audio.preload = 'metadata';
+  const btn = song.querySelector('.play'), fill = song.querySelector('.bar-fill'),
+        range = song.querySelector('input[type=range]'),
+        cur = song.querySelector('.cur'), dur = song.querySelector('.dur'),
+        title = song.querySelector('h3').textContent;
+  btn.innerHTML = PLAY;
+  players.push(audio);
+
+  const setUI = () => { const p = audio.paused;
+    btn.innerHTML = p ? PLAY : PAUSE; btn.setAttribute('aria-label', (p?'Play ':'Pause ')+title); };
+  btn.onclick = () => {
+    if (audio.paused) { players.forEach(a => a !== audio && a.pause()); audio.play(); }
+    else audio.pause();
+  };
+  audio.onplay = audio.onpause = audio.onended = setUI;
+  audio.onloadedmetadata = () => dur.textContent = fmt(audio.duration);
+  audio.ontimeupdate = () => {
+    const pct = audio.duration ? audio.currentTime / audio.duration : 0;
+    fill.style.width = pct*100 + '%'; range.value = pct*1000; cur.textContent = fmt(audio.currentTime);
+  };
+  range.oninput = () => { if (audio.duration) audio.currentTime = range.value/1000 * audio.duration; };
+
+  const lb = song.querySelector('.lyrics-btn'), ly = song.querySelector('.lyrics');
+  lb.onclick = () => { const open = ly.classList.toggle('open');
+    lb.textContent = open ? 'Hide the words' : 'Show the words'; lb.setAttribute('aria-expanded', open); };
+});
+</script>
+</body>
+</html>
